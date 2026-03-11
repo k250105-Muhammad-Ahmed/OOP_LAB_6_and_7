@@ -11,8 +11,7 @@ protected:
     string accountType;
 
 public:
-    Account(int accNo, string holder, double bal, string type = "General")
-        : accountNumber(accNo), accountHolderName(holder), balance(bal), accountType(type) {}
+    Account(int accNo, string holder, double bal, string type = "General") : accountNumber(accNo), accountHolderName(holder), balance(bal), accountType(type) {}
 
     virtual void deposit(double amount)
     {
@@ -23,7 +22,7 @@ public:
     {
         if (amount > balance)
         {
-            cout << "Insufficient funds.\n";
+            cout << "Insufficient funds." << endl;
             return false;
         }
         balance -= amount;
@@ -34,17 +33,17 @@ public:
 
     virtual void printStatement()
     {
-        cout << "Account Statement for " << accountHolderName << "\n";
-        cout << "Account Number: " << accountNumber << "\n";
-        cout << "Balance: " << balance << "\n";
+        cout << "Account Statement for " << accountHolderName << endl;
+        cout << "Account Number: " << accountNumber << endl;
+        cout << "Balance: " << balance << endl;
     }
 
     void getAccountInfo()
     {
-        cout << "Account Holder: " << accountHolderName << "\n";
-        cout << "Account Number: " << accountNumber << "\n";
-        cout << "Type: " << accountType << "\n";
-        cout << "Balance: " << balance << "\n";
+        cout << "Account Holder: " << accountHolderName << endl;
+        cout << "Account Number: " << accountNumber << endl;
+        cout << "Type: " << accountType << endl;
+        cout << "Balance: " << balance << endl;
     }
 };
 
@@ -67,7 +66,7 @@ public:
     {
         if (balance - amount < minimumBalance)
         {
-            cout << "Withdrawal denied. Minimum balance requirement not met.\n";
+            cout << "Withdrawal denied. Minimum balance requirement not met." << endl;
             return false;
         }
         return Account::withdraw(amount);
@@ -76,8 +75,8 @@ public:
     void printStatement() override
     {
         Account::printStatement();
-        cout << "Interest Rate: " << interestRate << "\n";
-        cout << "Minimum Balance: " << minimumBalance << "\n";
+        cout << "Interest Rate: " << interestRate << endl;
+        cout << "Minimum Balance: " << minimumBalance << endl;
     }
 };
 
@@ -99,7 +98,7 @@ public:
     {
         if (amount > balance + overdraftLimit)
         {
-            std::cout << "Withdrawal denied. Overdraft limit exceeded.\n";
+            cout << "Withdrawal denied. Overdraft limit exceeded.\n";
             return false;
         }
         balance -= amount;
@@ -109,7 +108,7 @@ public:
     void printStatement() override
     {
         Account::printStatement();
-        cout << "Overdraft Limit: " << overdraftLimit << "\n";
+        cout << "Overdraft Limit: " << overdraftLimit << endl;
     }
 };
 
@@ -117,10 +116,10 @@ class FixedDepositAccount : public Account
 {
 private:
     double fixedInterestRate;
-    std::string maturityDate;
+    string maturityDate;
 
 public:
-    FixedDepositAccount(int accNo, std::string holder, double bal, double rate, std::string maturity)
+    FixedDepositAccount(int accNo, string holder, double bal, double rate, string maturity)
         : Account(accNo, holder, bal, "Fixed Deposit"), fixedInterestRate(rate), maturityDate(maturity) {}
 
     double calculateInterest() override
@@ -130,42 +129,42 @@ public:
 
     bool withdraw(double amount) override
     {
-        std::cout << "Withdrawals not allowed before maturity date: " << maturityDate << "\n";
+        cout << "Withdrawals not allowed before maturity date: " << maturityDate << endl;
         return false;
     }
 
     void printStatement() override
     {
         Account::printStatement();
-        std::cout << "Fixed Interest Rate: " << fixedInterestRate << "\n";
-        std::cout << "Maturity Date: " << maturityDate << "\n";
+        cout << "Fixed Interest Rate: " << fixedInterestRate << endl;
+        cout << "Maturity Date: " << maturityDate << endl;
     }
 };
 
 int main()
 {
-    SavingsAccount savings(1001, "Alice", 5000.0, 0.03, 1000.0);
-    CheckingAccount checking(1002, "Bob", 2000.0, 500.0);
-    FixedDepositAccount fixed(1003, "Charlie", 10000.0, 0.05, "2027-03-10");
+    SavingsAccount savings(1001, "Ali", 5000.0, 0.03, 1000.0);
+    CheckingAccount checking(1002, "Salman", 2000.0, 500.0);
+    FixedDepositAccount fixed(1003, "Moiz", 10000.0, 0.05, "2027-03-10");
 
     cout << "\nSavings Account Transactions\n";
     savings.deposit(1000);
     savings.withdraw(4500);
     savings.getAccountInfo();
-    cout << "Interest: " << savings.calculateInterest() << "\n";
+    cout << "Interest: " << savings.calculateInterest() << endl;
     savings.printStatement();
 
     cout << "\nChecking Account Transactions\n";
     checking.withdraw(2200);
     checking.deposit(500);
     checking.getAccountInfo();
-    cout << "Interest: " << checking.calculateInterest() << "\n";
+    cout << "Interest: " << checking.calculateInterest() << endl;
     checking.printStatement();
 
     cout << "\nFixed Deposit Account Transactions\n";
     fixed.withdraw(2000);
     fixed.getAccountInfo();
-    cout << "Interest: " << fixed.calculateInterest() << "\n";
+    cout << "Interest: " << fixed.calculateInterest() << endl;
     fixed.printStatement();
 
     return 0;
